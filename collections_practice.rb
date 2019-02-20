@@ -1,4 +1,6 @@
 # your code goes here
+require 'pry'
+
 def begins_with_r(array)
    array.each do |element|
        if element[0] != "r"
@@ -32,14 +34,13 @@ def remove_non_strings(array)
         end
 end
 
-#revisit
+
 def count_elements(array)
-       array.each do |name|
-          name.count
-    end
+    array.each_with_object(Hash.new(0)) {|a,b| b[a[:name]] += 1}.collect {|name,count| {:name=>name, :count=>count}}
+    #binding.pry
 end
 
-#revisit
+
 def merge_data(data1, data2)
     new_array = []
     data1.each do |item|
@@ -49,14 +50,36 @@ def merge_data(data1, data2)
     new_array
 end
 
-#revisit
-def find_cool(hashes)
-      hashes.find do |hash|
-         hash == "cool"
+
+def find_cool(cool)
+    array = []
+    cool.each do |hash|
+        hash.each do |k, v|
+          if v == "cool"
+              return array << hash
+              #binding.pry
+          end
+        end
     end
 end
 
-#revisit
-def organize_schools(school, location)
-    school.sort[location]
+
+def organize_schools(school)
+    locations = {}
+    school.each do |name,location|
+    location.each do |k,v|
+        locations[v] = []
+        end
+    end
+    school.each do |name,location|
+        location.each do |k,v|
+        locations.keys.each do |city|
+            if v == city
+                locations[city] << name
+                #binding.pry
+            end
+        end
+        end
+    end
+    locations
 end
